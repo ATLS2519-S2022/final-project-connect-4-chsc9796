@@ -29,21 +29,24 @@ public class GreedyPlayer implements Player
         if (board.isFull()) {
             throw new Error ("Complaint: The board is full!");
         }
-        int oldMax = 0;
-        int newMax = 0;
+        int max = -100;
         int col = 0;
+        int maxCol = 0;
         // Find maximum score from all possible moves
         for (col = 0 ; col < 7; col++) {
         	if (board.isValidMove(col)) {
         		board.move(col, id);
             	calcScore(board, col);
-            	oard.unmove(col, id);
-            	
+            	if (calcScore(board, col) > max) {
+            		max = calcScore(board,col);
+            		maxCol = col;
+            	}
+            	board.unmove(col, id);
         	}
         	
         	
         }
-        arb.setMove(col);
+        arb.setMove(maxCol);
     }
     public int calcScore(Connect4Board board, int id)
 	{
