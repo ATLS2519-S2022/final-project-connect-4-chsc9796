@@ -60,11 +60,12 @@ public class MinimaxPlayer implements Player
 //    			return bestScore
     		if (isMaximizing == true) {
     			int bestScore = -1000;
-    			for () {
-    				board.move();
-    				bestScore = max(bestScore, minimax(board, depth - 1, False, arb))
-    				board.unmove();
+    			for (cols = 0 ; cols < 7; cols++) {
+    				board.move(cols, id);
+    				bestScore = Math.max(bestScore, minimax(board, depth - 1, false, arb));
+    				board.unmove(cols, id);
     			}
+    			return bestScore;
     		}
     		
 //    		else /* minimizing player */ 
@@ -74,6 +75,15 @@ public class MinimaxPlayer implements Player
 //    				bestScore := Math.min(bestScore, minimax(child, depth - 1, FALSE, arb))
     		//		board.unmove(...)
 //    			return bestScore
+    		else {
+    			int bestScore = 1000;
+    			for (cols = 0 ; cols < 7; cols++) {
+    				board.move(cols, id);
+    				bestScore = Math.min(bestScore, minimax(child, depth - 1, false, arb));
+    				board.unmove(cols, id);
+    			}
+    			return bestScore;
+    		}
     }
     public int calcScore(Connect4Board board, int id)
 	{
