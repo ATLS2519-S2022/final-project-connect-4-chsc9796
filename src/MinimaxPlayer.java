@@ -37,7 +37,18 @@ public class MinimaxPlayer implements Player
         while (!arb.isTimeUp() && maxDepth <=board.numEmptyCells()) {
         	//run the first level of minimax search
         	//set col to be the best column corresponding to the best score
-        	
+ 			int bestScore = -1000;
+			for (cols = 0 ; cols < 7; cols++) {
+				if (board.isValidMove(cols)) {
+					board.move(cols, opponent_id);
+					int score = minimax(board, maxDepth - 1, false, arb);
+					if (score > bestScore) {
+						bestScore = score;
+						move = cols;
+					}
+					board.unmove(cols, opponent_id);
+				}
+			}
         	maxDepth++;
         	arb.setMove(move);
         }
@@ -61,9 +72,9 @@ public class MinimaxPlayer implements Player
     		if (isMaximizing == true) {
     			int bestScore = -1000;
     			for (cols = 0 ; cols < 7; cols++) {
-    				board.move(cols, id);
+    				board.move(cols, opponent_id);
     				bestScore = Math.max(bestScore, minimax(board, depth - 1, false, arb));
-    				board.unmove(cols, id);
+    				board.unmove(cols, opponent_id);
     			}
     			return bestScore;
     		}
@@ -72,15 +83,15 @@ public class MinimaxPlayer implements Player
 //    			bestScore = 1000
 //    			for each possible move do
 //					board.move(...) for your opponenst's pl
-//    				bestScore := Math.min(bestScore, minimax(child, depth - 1, FALSE, arb))
+//    				bestScore := Math.min(bestScore, minimax(child, depth - 1, TRUE, arb))
     		//		board.unmove(...)
 //    			return bestScore
     		else {
     			int bestScore = 1000;
     			for (cols = 0 ; cols < 7; cols++) {
-    				board.move(cols, id);
-    				bestScore = Math.min(bestScore, minimax(child, depth - 1, false, arb));
-    				board.unmove(cols, id);
+    				board.move(cols, opponent_id);
+    				bestScore = Math.min(bestScore, minimax(board, depth - 1, true, arb));
+    				board.unmove(cols, opponent_id);
     			}
     			return bestScore;
     		}
