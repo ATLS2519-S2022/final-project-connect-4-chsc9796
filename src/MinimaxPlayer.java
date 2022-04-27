@@ -62,13 +62,6 @@ public class MinimaxPlayer implements Player
     			return calcScore(board,id) - calcScore(board, opponent_id);
     		}
     		
-//    		if maximizingPlayer then
-//    			bestScore = -1000
-//    			for each possible move do
-   // 				board.move(...) for your player
-    		//    	bestScore := max(bestScore, minimax(board, depth - 1, FALSE, arb)) 
-    		//		board.unmove(...)
-//    			return bestScore
     		if (isMaximizing == true) {
     			int bestScore = -1000;
     			for (cols = 0 ; cols < 7; cols++) {
@@ -78,14 +71,6 @@ public class MinimaxPlayer implements Player
     			}
     			return bestScore;
     		}
-    		
-//    		else /* minimizing player */ 
-//    			bestScore = 1000
-//    			for each possible move do
-//					board.move(...) for your opponenst's pl
-//    				bestScore := Math.min(bestScore, minimax(child, depth - 1, TRUE, arb))
-    		//		board.unmove(...)
-//    			return bestScore
     		else {
     			int bestScore = 1000;
     			for (cols = 0 ; cols < 7; cols++) {
